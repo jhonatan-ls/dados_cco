@@ -175,7 +175,7 @@ def test_kpi_nc_por_classificacao(df_ncs_limpo):
     assert resultado.iloc[0]["total"] == 5
 
 
-# --- kpi_nc_por_capitulo ---
+# --- kpi_nc_por_area ---
 
 def test_kpi_nc_por_area_agrupa(df_ncs_limpo):
     resultado = analise.kpi_nc_por_area(df_ncs_limpo)
