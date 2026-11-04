@@ -131,9 +131,8 @@ def kpis(df_a):
     ]
 
 
-# ============================================================
+
 # GRÁFICOS
-# ============================================================
 
 def g1_analises_filial(df_a):
     resumo = df_a.groupby("filial").agg(total=("id_analise", "count"), nc=("qtd_nc", "sum")).reset_index()
@@ -320,11 +319,11 @@ def g9_top_codigos(df_n):
 
 
 def g10_nc_area(df_n):
-    resumo = df_n.groupby("capitulo_nc").agg(total=("codigo_nc", "count")).reset_index()
+    resumo = df_n.groupby("area_nc").agg(total=("codigo_nc", "count")).reset_index()
     resumo = resumo.assign(cap_int=resumo["capitulo_nc"].astype(int)).sort_values("cap_int")
     fig = px.bar(
-        resumo, x="capitulo_nc", y="total", color="total", color_continuous_scale="Greens",
-        labels={"capitulo_nc": "Área", "total": "NCs"}, text="total",
+        resumo, x="area_nc", y="total", color="total", color_continuous_scale="Greens",
+        labels={"area_nc": "Área", "total": "NCs"}, text="total",
     )
     fig.update_traces(
         texttemplate="%{text:,}", textposition="outside", textfont=dict(color=PLOTLY_TEXTO, size=13), cliponaxis=False,
@@ -387,11 +386,11 @@ def g12_nc_dia_semana(df_a, df_n):
 
 def g13_gravidade_area(df_n):
     ordem = ["Crítica", "Alta", "Média", "Baixa"]
-    pivot = df_n.pivot_table(index="capitulo_nc", columns="gravidade", values="codigo_nc", aggfunc="count", fill_value=0)
+    pivot = df_n.pivot_table(index="area_nc", columns="gravidade", values="codigo_nc", aggfunc="count", fill_value=0)
     for g in ordem:
         if g not in pivot.columns:
             pivot[g] = 0
-    pivot = pivot[ordem].reset_index().sort_values("capitulo_nc", key=lambda s: s.astype(int))
+    pivot = pivot[ordem].reset_index().sort_values("area_nc", key=lambda s: s.astype(int))
 
     fig = go.Figure()
     
@@ -405,7 +404,7 @@ def g13_gravidade_area(df_n):
     
     for g in ordem:
         fig.add_trace(go.Bar(
-            x=pivot["capitulo_nc"], y=pivot[g], name=g, 
+            x=pivot["area_nc"], y=pivot[g], name=g, 
             marker_color=cores[g],
             marker_line_color=COR_BORDA, marker_line_width=1,
             text=pivot[g], textposition="inside", insidetextanchor="middle", textfont=dict(color="#FFFFFF", size=11),
@@ -417,9 +416,8 @@ def g13_gravidade_area(df_n):
     return aplicar_tema(fig, 400)
 
 
-# ============================================================
+
 # MONTAGEM DO PDF
-# ============================================================
 
 def gerar_pdf():
     print("Carregando dados...")
