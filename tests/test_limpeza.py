@@ -147,19 +147,19 @@ def test_limpar_ncs_explode_compostas(df_ncs_bruto):
     assert len(j0057) == 2
 
 
-def test_limpar_ncs_extrai_codigo_e_capitulo(df_ncs_bruto):
+def test_limpar_ncs_extrai_codigo_e_area(df_ncs_bruto):
     df = df_ncs_bruto.copy()
     df.columns = [limpeza.normalizar(c) for c in df.columns]
     resultado = limpeza.limpar_ncs(df)
 
     assert "codigo_nc" in resultado.columns
-    assert "capitulo_nc" in resultado.columns
+    assert "area_nc" in resultado.columns
 
     item_32 = resultado[resultado["codigo_nc"] == "3.2"]
-    assert item_32["capitulo_nc"].iloc[0] == "3"
+    assert item_32["area_nc"].iloc[0] == "3"
 
     item_11 = resultado[resultado["codigo_nc"] == "1.1"]
-    assert item_11["capitulo_nc"].iloc[0] == "1"
+    assert item_11["area_nc"].iloc[0] == "1"
 
 
 def test_limpar_ncs_converte_codigo_unidade(df_ncs_bruto):
