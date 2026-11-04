@@ -191,7 +191,7 @@ def limpar_ncs(df):
 
         df = df.assign(
             codigo_nc=df["pergunta"],
-            capitulo_nc=df["pergunta"].str.split(".").str[0],
+            area_nc=df["pergunta"].str.split(".").str[0],
         )
 
     for c in ["classificacao", "gravidade", "criticidade"]:
