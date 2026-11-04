@@ -1,5 +1,5 @@
 # 04_visualizacao_cco.py
-# Meu objetivo: gerar os gráficos estáticos dos KPIs do CCO.
+# Meu objetivo: gerar os gráficos estáticos dos KPIs do CCO
 
 import pandas as pd
 import plotly.express as px
@@ -228,16 +228,16 @@ def graf_nc_classificacao(df_n):
 
 def graf_nc_area(df_n):
     print("\nGráfico 7: NCs por área")
-    # CORRIGIDO AQUI: Voltou a ser capitulo_nc
-    resumo = df_n.groupby("capitulo_nc").size().reset_index(name="total")
-    resumo = resumo.assign(cap_int=resumo["capitulo_nc"].astype(int))
+    # CORRIGIDO AQUI: Voltou a ser area_nc
+    resumo = df_n.groupby("area_nc").size().reset_index(name="total")
+    resumo = resumo.assign(cap_int=resumo["area_nc"].astype(int))
     resumo = resumo.sort_values("cap_int")
 
     fig = px.bar(
-        resumo, x="capitulo_nc", y="total",
+        resumo, x="area_nc", y="total",
         color="total", color_continuous_scale="Greens",
         text="total",
-        labels={"capitulo_nc": "Área", "total": "Total de NCs"},
+        labels={"area_nc": "Área", "total": "Total de NCs"},
         title="NCs por área do checklist",
     )
     fig.update_traces(
