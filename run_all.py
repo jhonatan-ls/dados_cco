@@ -1,5 +1,5 @@
 # run_all.py
-# Roda o pipeline completo em ordem.
+# Roda o pipeline completo em ordem
 
 import subprocess
 import sys
@@ -36,7 +36,7 @@ def main():
     inicio = time.time()
 
     print("============================================================")
-    print(" PIPELINE CCO - INICIO")
+    print(" PIPELINE - INICIO")
     print("============================================================")
 
     for nome, script in ETAPAS:
