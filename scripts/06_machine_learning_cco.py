@@ -17,7 +17,7 @@ ARQ_NCS = os.path.join(BASE_DIR, "dados_tratados", "nao_conformidades_limpas.csv
 PASTA_MODELO = os.path.join(BASE_DIR, "modelo")
 PASTA_IMAGENS = os.path.join(BASE_DIR, "imagens")
 
-FEATURES = ["filial", "classificacao", "codigo_unidade", "capitulo_nc"]
+FEATURES = ["filial", "classificacao", "codigo_unidade", "area_nc"]
 TARGET = "critica_bin"
 
 # Cores (Tema Claro)
