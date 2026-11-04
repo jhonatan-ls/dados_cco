@@ -36,7 +36,7 @@ def df_ncs_limpo():
     return pd.DataFrame({
         "id_analise": ["J-0003", "J-0003", "J-0003", "J-0004", "J-0004"],
         "codigo_nc": ["3.2", "5.3", "6.1", "1.1", "1.1"],
-        "capitulo_nc": ["3", "5", "6", "1", "1"],
+        "area_nc": ["3", "5", "6", "1", "1"],
         "classificacao": ["Documentação"] * 5,
         "gravidade": ["Crítica", "Crítica", "Alta", "Crítica", "Crítica"],
         "codigo_unidade": [293, 293, 293, 165, 165],
@@ -177,21 +177,21 @@ def test_kpi_nc_por_classificacao(df_ncs_limpo):
 
 # --- kpi_nc_por_capitulo ---
 
-def test_kpi_nc_por_capitulo_agrupa(df_ncs_limpo):
-    resultado = analise.kpi_nc_por_capitulo(df_ncs_limpo)
+def test_kpi_nc_por_area_agrupa(df_ncs_limpo):
+    resultado = analise.kpi_nc_por_area(df_ncs_limpo)
 
-    cap_1 = resultado[resultado["capitulo_nc"] == "1"].iloc[0]
-    cap_3 = resultado[resultado["capitulo_nc"] == "3"].iloc[0]
+    area_1 = resultado[resultado["area_nc"] == "1"].iloc[0]
+    area_3 = resultado[resultado["area_nc"] == "3"].iloc[0]
 
-    assert cap_1["total"] == 2
-    assert cap_3["total"] == 1
+    assert area_1["total"] == 2
+    assert area_3["total"] == 1
 
 
-def test_kpi_nc_por_capitulo_ordena_numericamente(df_ncs_limpo):
-    resultado = analise.kpi_nc_por_capitulo(df_ncs_limpo)
-    capitulos = resultado["capitulo_nc"].tolist()
+def test_kpi_nc_por_area_ordena_numericamente(df_ncs_limpo):
+    resultado = analise.kpi_nc_por_area(df_ncs_limpo)
+    areas = resultado["area_nc"].tolist()
     # 1, 3, 5, 6 (ordem numérica crescente)
-    assert capitulos == ["1", "3", "5", "6"]
+    assert areas == ["1", "3", "5", "6"]
 
 
 # --- kpi_top_ncs ---
