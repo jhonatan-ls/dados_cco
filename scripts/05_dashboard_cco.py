@@ -140,7 +140,7 @@ COR_VERMELHO = "#C62828"
 COR_TEXTO = "#2C3E50"
 COR_BORDA = "#B0BEC5" # Contorno das barras brancas
 
-FEATURES = ["filial", "classificacao", "codigo_unidade", "capitulo_nc"]
+FEATURES = ["filial", "classificacao", "codigo_unidade", "area_nc"]
 TARGET = "critica_bin"
 
 
@@ -562,16 +562,16 @@ if df_n_f is not None and len(df_n_f) > 0:
 st.subheader("NCs por Área do Checklist")
 
 if df_n_f is not None and len(df_n_f) > 0:
-    resumo_cap = df_n_f.groupby("capitulo_nc").agg(
+    resumo_cap = df_n_f.groupby("area_nc").agg(
         total=("codigo_nc", "count"),
     ).reset_index()
-    resumo_cap = resumo_cap.assign(cap_int=resumo_cap["capitulo_nc"].astype(int))
+    resumo_cap = resumo_cap.assign(cap_int=resumo_cap["area_nc"].astype(int))
     resumo_cap = resumo_cap.sort_values("cap_int")
 
     fig10 = px.bar(
-        resumo_cap, x="capitulo_nc", y="total",
+        resumo_cap, x="area_nc", y="total",
         color="total", color_continuous_scale="Greens",
-        labels={"capitulo_nc": "Área", "total": "NCs"},
+        labels={"area_nc": "Área", "total": "NCs"},
         text="total",
     )
     fig10.update_traces(
@@ -668,14 +668,14 @@ st.subheader("Gravidade das NCs por Área")
 if df_n_f is not None and len(df_n_f) > 0:
     ordem_grav = ["Baixa", "Média", "Alta", "Crítica"]
     pivot_cap = df_n_f.pivot_table(
-        index="capitulo_nc", columns="gravidade", values="codigo_nc",
+        index="area_nc", columns="gravidade", values="codigo_nc",
         aggfunc="count", fill_value=0,
     )
     for g in ordem_grav:
         if g not in pivot_cap.columns:
             pivot_cap[g] = 0
     pivot_cap = pivot_cap[ordem_grav]
-    pivot_cap = pivot_cap.reset_index().sort_values("capitulo_nc", key=lambda s: s.astype(int))
+    pivot_cap = pivot_cap.reset_index().sort_values("area_nc", key=lambda s: s.astype(int))
 
     fig13 = go.Figure()
     
@@ -688,7 +688,7 @@ if df_n_f is not None and len(df_n_f) > 0:
     
     for g in ordem_grav:
         fig13.add_trace(go.Bar(
-            x=pivot_cap["capitulo_nc"], y=pivot_cap[g], name=g,
+            x=pivot_cap["area_nc"], y=pivot_cap[g], name=g,
             marker_color=cores_grav[g],
             hovertemplate="Área %{x}<br>" + g + ": %{y}<extra></extra>",
         ))
@@ -738,7 +738,7 @@ else:
             )
             capitulo_input = st.selectbox(
                 "Área do checklist",
-                options=sorted(df_n["capitulo_nc"].dropna().unique().tolist()),
+                options=sorted(df_n["area_nc"].dropna().unique().tolist()),
             )
 
         submit = st.form_submit_button("Prever Criticidade", use_container_width=True)
@@ -749,7 +749,7 @@ else:
                 "filial": filial_input,
                 "classificacao": classificacao_input,
                 "codigo_unidade": unidade_input,
-                "capitulo_nc": capitulo_input,
+                "area_nc": capitulo_input,
             }
 
             linha_codificada = {}
