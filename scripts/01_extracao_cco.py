@@ -1,6 +1,6 @@
 # 01_extracao_cco.py
 # Meu objetivo: ler todos os meses em dados_brutos/ e consolidar cada tipo
-# em um único CSV em dados_tratados/brutos/.
+# em um único CSV em dados_tratados/brutos/
 
 import pandas as pd
 import os
