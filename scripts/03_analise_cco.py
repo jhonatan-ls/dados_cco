@@ -1,5 +1,5 @@
 # 03_analise_cco.py
-# Meu objetivo: gerar os KPIs operacionais do CCO.
+# Meu objetivo: gerar os KPIs operacionais do CCO
 
 import pandas as pd
 import numpy as np
@@ -190,20 +190,20 @@ def kpi_nc_por_classificacao(df_n):
     return resumo
 
 
-def kpi_nc_por_capitulo(df_n):
+def kpi_nc_por_area(df_n):
     print("\n" + "=" * 60)
     print("KPI 9: NCs por área do checklist")
     print("=" * 60)
 
-    # CORRIGIDO AQUI: voltou a ser "capitulo_nc"
-    resumo = df_n.groupby("capitulo_nc").agg(
+    # CORRIGIDO AQUI: voltou a ser "área_nc"
+    resumo = df_n.groupby("area_nc").agg(
         total=("codigo_nc", "count"),
         criticas=("gravidade", lambda s: (s == "Crítica").sum()),
     ).reset_index()
     resumo = resumo.assign(
         taxa_criticidade_pct=(resumo["criticas"] / resumo["total"] * 100).round(2)
     )
-    resumo = resumo.sort_values("capitulo_nc", key=lambda s: s.astype(int))
+    resumo = resumo.sort_values("area_nc", key=lambda s: s.astype(int))
     print(resumo.to_string(index=False))
     return resumo
 
@@ -304,8 +304,8 @@ if __name__ == "__main__":
     if df_n is not None:
         resultados["KPI 7 - NC por gravidade"] = kpi_nc_por_gravidade(df_n)
         resultados["KPI 8 - NC por classificacao"] = kpi_nc_por_classificacao(df_n)
-        # CORRIGIDO AQUI TAMBÉM
-        resultados["KPI 9 - NC por area"] = kpi_nc_por_capitulo(df_n)
+        # CORRIGIDO AQUI TAMBÉM (capítulo > área)
+        resultados["KPI 9 - NC por area"] = kpi_nc_por_area(df_n)
         resultados["KPI 10 - Top codigos NC"] = kpi_top_ncs(df_n)
         resultados["KPI 11 - NC por filial"] = kpi_nc_por_filial(df_n)
         resultados["KPI 12 - Filial x Gravidade"] = kpi_filial_x_gravidade(df_n)
