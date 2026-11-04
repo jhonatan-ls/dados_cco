@@ -1,5 +1,5 @@
 # 02_limpeza_cco.py
-# Meu objetivo: ler cada aba salva, separar por tipo, explodir NCs compostas, padronizar.
+# Meu objetivo: ler cada aba salva, separar por tipo, explodir NCs compostas, padronizar
 
 import pandas as pd
 import os
