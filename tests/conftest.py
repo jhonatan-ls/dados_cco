@@ -85,7 +85,7 @@ def df_ncs_vazio():
     return pd.DataFrame({
         "id_analise": [],
         "codigo_nc": [],
-        "capitulo_nc": [],
+        "area_nc": [],
         "classificacao": [],
         "gravidade": [],
         "codigo_unidade": [],
